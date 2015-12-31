@@ -1,6 +1,6 @@
 //<?php
 /**
- * ScrollFix 
+ * ScrollFix
  * Remembers last scroll-position after pressing save-button, combined with "AlwaysStay"
  * tested only with Evo 1.0.15
  *
@@ -8,30 +8,38 @@
  * AlwaysStay: https://github.com/extras-evolution/AlwaysStay/blob/master/install/assets/plugins/AlwaysStay.tpl
  *
  * @category    plugin
- * @version     0.1
+ * @version     0.2
+ * @date		31.12.2015
  * @author		dh@fuseit.de
  * @internal    @configuration:
- *              &alwaysStay=AlwaysStay;list;Enabled,Disabled;Enabled &scrollFix=ScrollFix;list;Enabled,Disabled;Enabled
+ *              &alwaysStay=AlwaysStay;list;Enabled,Disabled;Disabled &scrollFix=ScrollFix;list;Enabled,Disabled;Disabled &$cookieLifetime=ScrollFix Cookie-Lifetime (days);int;0.1 &addToTopButton=Add ToTop-Button;list;Enabled,Disabled;Disabled
  * @internal    @events:
- *				OnDocFormRender,OnTempFormRender,OnChunkFormRender,OnSnipFormRender,OnPluginFormRender
+ *				OnManagerMainFrameHeaderHTMLBlock
  */
 
-$alwaysStay = isset( $alwaysStay ) ? $alwaysStay : 'Disabled';
-$scrollFix = isset( $scrollFix ) ? $scrollFix : 'Disabled';
+$alwaysStay 	= isset( $alwaysStay ) ? $alwaysStay : 'Disabled';
+$scrollFix 		= isset( $scrollFix ) ? $scrollFix : 'Disabled';
+$cookieLifetime = isset( $cookieLifetime ) ? $cookieLifetime : 0.1;
+$addToTopButton = isset( $addToTopButton ) ? $addToTopButton : 'Disabled';
 
 $e = & $modx->Event;
-if ($e->name == "OnDocFormRender" ||
-    $e->name == "OnTempFormRender" ||
-    $e->name == "OnChunkFormRender" ||
-    $e->name == "OnSnipFormRender" ||
-    $e->name == "OnPluginFormRender"
-   ) {
-	$html = '';
+
+if ( $e->name == "OnManagerMainFrameHeaderHTMLBlock" ) {
+
+	$html = '<!-- ScrollFix Start -->';
+
+	// PREPARE TOTOP-BUTTON
+	$addToTopButtonCode = $addToTopButton != 'Disabled'
+		? '$j("body").append("<a onclick=\"setScrollXY(0,0)\" style=\"position:fixed;z-index:999999;bottom:10px;right:10px;display:block;width:50px;height:50px;line-height:50px;font-size:30px;text-align:center;background-color:#89AD4A;color:#fff;border:1px solid #658F1A;border-radius:5px;cursor:pointer;text-decoration:none;\">&#x25B2;</a>");'
+		: '';
+
+	// PREPARE SCROLLFIX
 	if( $scrollFix != 'Disabled' ) {
-    	$html .= '
+		$html .= '
 		<script>!window.jQuery && document.write(unescape(\'%3Cscript src="/assets/js/jquery.min.js"%3E%3C/script%3E\'))</script>
         <script type="text/javascript">
 			window.$j = jQuery.noConflict();
+
             ////////////////////////////////
 			// fixscroll.js:
 			// call loadP and unloadP when body loads/unloads and scroll position will not move
@@ -52,10 +60,11 @@ if ($e->name == "OnDocFormRender" ||
 				}
 				return [x, y];
 			}
-					   
+
 			function setScrollXY(x, y) {
 				window.scrollTo(x, y);
 			}
+
 			function createCookie(name,value,days) {
 				if (days) {
 					var date = new Date();
@@ -65,7 +74,7 @@ if ($e->name == "OnDocFormRender" ||
 				else var expires = "";
 				document.cookie = name+"="+value+expires+"; path=/";
 			}
-			
+
 			function readCookie(name) {
 				var nameEQ = name + "=";
 				var ca = document.cookie.split(";");
@@ -76,33 +85,50 @@ if ($e->name == "OnDocFormRender" ||
 				}
 				return null;
 			}
+
 			function loadP(pageref){
 				x=readCookie(pageref+"x");
 				y=readCookie(pageref+"y");
-				setScrollXY(x,y)
+				setScrollXY(x,y);
 			}
+
 			function unloadP(pageref){
 				s=getScrollXY()
-				createCookie(pageref+"x",s[0],0.1);
-				createCookie(pageref+"y",s[1],0.1);
+				createCookie(pageref+"x",s[0],'. $cookieLifetime .');
+				createCookie(pageref+"y",s[1],'. $cookieLifetime .');
 			}
-			
+
+			// DETERMINE GET-PARAMS
+			var params={};
+			window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(str,key,value){params[key] = value;});
+
+			// GENERATE pageref AS COOKIE-ID
+			var pageref = "ScrollFix_a"+params["a"];
+			if(params["id"] != undefined) { pageref += "_id"+params["id"]; }
+
 			$j("#Button1 > a").removeAttr("href").css("cursor","pointer");	// REMOVE # FROM HREF TO AVOID SCROLL-TO-TOP
 			$j( window ).unload(function() {
-				unloadP("UniquePageNameHereScroll");
+				unloadP(pageref);
 			});
-			$j(document).ready(function() {
-				loadP("UniquePageNameHereScroll");
+			$j( window ).load(function() {
+				loadP(pageref);
+				'. $addToTopButtonCode .'
 			});
         </script>';
 	};
-	
+
+	// PREPARE ALWAYS-STAY
 	if( $alwaysStay != 'Disabled' ) {
 		$html .= '
 		<script>
-			if(!$("stay").value) $("stay").value=2;	// ALWAYS STAY
+			$j(document).ready(function() {
+				if($("stay")) { if(!$("stay").value) { $("stay").value=2; }}
+			});
 		</script>';
 	};
-	
-    $e->output($html);
+
+	$html .= '
+	<!-- ScrollFix End -->';
+
+	$e->output($html);
 }
