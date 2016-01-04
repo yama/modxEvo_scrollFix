@@ -8,18 +8,18 @@
  * AlwaysStay: https://github.com/extras-evolution/AlwaysStay/blob/master/install/assets/plugins/AlwaysStay.tpl
  *
  * @category    plugin
- * @version     0.2
- * @date		31.12.2015
+ * @version     0.21
+ * @date		04.01.2016
  * @author		dh@fuseit.de
  * @internal    @configuration:
- *              &alwaysStay=AlwaysStay;list;Enabled,Disabled;Disabled &scrollFix=ScrollFix;list;Enabled,Disabled;Disabled &$cookieLifetime=ScrollFix Cookie-Lifetime (days);int;0.1 &addToTopButton=Add ToTop-Button;list;Enabled,Disabled;Disabled
+ *              &alwaysStay=AlwaysStay;list;Enabled,Disabled;Disabled &scrollFix=ScrollFix;list;Enabled,Disabled;Disabled &cookieLifetime=ScrollFix Cookie-Lifetime (Minutes);int;120 &addToTopButton=Add ToTop-Button;list;Enabled,Disabled;Disabled
  * @internal    @events:
  *				OnManagerMainFrameHeaderHTMLBlock
  */
 
 $alwaysStay 	= isset( $alwaysStay ) ? $alwaysStay : 'Disabled';
 $scrollFix 		= isset( $scrollFix ) ? $scrollFix : 'Disabled';
-$cookieLifetime = isset( $cookieLifetime ) ? $cookieLifetime : 0.1;
+$cookieLifetime = isset( $cookieLifetime ) ? $cookieLifetime : 120;
 $addToTopButton = isset( $addToTopButton ) ? $addToTopButton : 'Disabled';
 
 $e = & $modx->Event;
@@ -65,10 +65,10 @@ if ( $e->name == "OnManagerMainFrameHeaderHTMLBlock" ) {
 				window.scrollTo(x, y);
 			}
 
-			function createCookie(name,value,days) {
-				if (days) {
+			function createCookie(name,value,minutes) {
+				if (minutes) {
 					var date = new Date();
-					date.setTime(date.getTime()+(days*24*60*60*1000));
+					date.setTime(date.getTime()+(minutes*60*1000));
 					var expires = "; expires="+date.toGMTString();
 				}
 				else var expires = "";
@@ -106,11 +106,11 @@ if ( $e->name == "OnManagerMainFrameHeaderHTMLBlock" ) {
 			var pageref = "ScrollFix_a"+params["a"];
 			if(params["id"] != undefined) { pageref += "_id"+params["id"]; }
 
-			$j("#Button1 > a").removeAttr("href").css("cursor","pointer");	// REMOVE # FROM HREF TO AVOID SCROLL-TO-TOP
 			$j( window ).unload(function() {
 				unloadP(pageref);
 			});
 			$j( window ).load(function() {
+				$j("#Button1 > a").removeAttr("href").css("cursor","pointer");	// REMOVE # FROM HREF TO AVOID SCROLL-TO-TOP
 				loadP(pageref);
 				'. $addToTopButtonCode .'
 			});
