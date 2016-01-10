@@ -16,9 +16,9 @@
  *              OnManagerMainFrameHeaderHTMLBlock
  */
 
-$jQueryCdn 		= isset( $jQueryCdn ) ? $jQueryCdn : 'Disabled';
-$alwaysStay 	= isset( $alwaysStay ) ? $alwaysStay : 'Disabled';
-$scrollFix 		= isset( $scrollFix ) ? $scrollFix : 'Disabled';
+$jQueryCdn      = isset( $jQueryCdn ) ? $jQueryCdn : 'Disabled';
+$alwaysStay     = isset( $alwaysStay ) ? $alwaysStay : 'Disabled';
+$scrollFix      = isset( $scrollFix ) ? $scrollFix : 'Disabled';
 $cookieLifetime = isset( $cookieLifetime ) ? $cookieLifetime : 120;
 $addToTopButton = isset( $addToTopButton ) ? $addToTopButton : 'Disabled';
 $fixTabHeader	= isset( $fixTabHeader ) ? $fixTabHeader : 'Disabled';
@@ -43,7 +43,7 @@ if ( $e->name == "OnManagerMainFrameHeaderHTMLBlock" ) {
 
 		// ADD JQUERY FROM CDN
 		if( $jQueryCdn != 'Disabled' ) {
-			$html .= '
+		    $html .= '
 		<script>!window.jQuery && document.write(unescape(\'%3Cscript src="https://code.jquery.com/jquery.min.js"%3E%3C/script%3E\'))</script>';
 		};
 
