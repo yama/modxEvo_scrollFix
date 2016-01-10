@@ -1,2 +1,4 @@
 .idea
-scrollfix-plg.txt
+/.gitignore
+/assets/plugins/scrollfix/scrollfix-plg-0.3.txt
+/assets/plugins/scrollfix/scrollfix-plg-0.2.txt
