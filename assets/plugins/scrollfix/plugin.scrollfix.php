@@ -2,19 +2,18 @@
 /**
  * ScrollFix
  * Remembers last scroll-position after pressing save-button, combined with "AlwaysStay"
- * tested only with Evo 1.0.15
  *
  * ScrollFix:  http://forums.modx.com/thread/92462/remember-position-of-resource-page-after-saving-in-evo
  * AlwaysStay: https://github.com/extras-evolution/AlwaysStay/blob/master/install/assets/plugins/AlwaysStay.tpl
  *
  * @category    plugin
  * @version     0.3
- * @date		10.01.2016
- * @author		dh@fuseit.de
+ * @date        10.01.2016
+ * @author      dh@fuseit.de
  * @internal    @configuration:
  *              &jQueryCdn=Load jQuery from CDN (code.jquery.com);list;Enabled,Disabled;Disabled &alwaysStay=AlwaysStay;list;Enabled,Disabled;Disabled &scrollFix=ScrollFix;list;Enabled,Disabled;Disabled &fixTabHeader=Fix Tab-Header;list;Enabled,Disabled;Disabled &cookieLifetime=ScrollFix Cookie-Lifetime (Minutes);int;120 &addToTopButton=Add ToTop-Button;list;Enabled,Disabled;Disabled
  * @internal    @events:
- *				OnManagerMainFrameHeaderHTMLBlock
+ *              OnManagerMainFrameHeaderHTMLBlock
  */
 
 $jQueryCdn 		= isset( $jQueryCdn ) ? $jQueryCdn : 'Disabled';
