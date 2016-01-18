@@ -8,11 +8,15 @@ Offers several features to optimize workflow within Modx Evolution Manager:
 - "Load jQuery from CDN": In case jQuery can not be found, this option acts as fallback to load jQuery from code.jquery.com
 
 #### Tested with
-- Modx Evolution 1.0.5 - 1.1
+- Modx Evolution 1.0.5 - 1.1 (Standard Templates "MODxCarbon", "MODxRE")
 - ManagerManager 0.6.2 (mm_createTab, mm_moveFieldsToTab)
 - MultiTV 2.0
 
 #### Version History
+##### v0.41 - *2016-01-18*
+- Bugfix: Disable "Fix Tab-Header" for specific actions
+- Bugfix: Switch "ToTop-Button" using window.scrollTo if no tab is fixed
+
 ##### v0.4 - *2016-01-15*
 - New Feature "Extend Save-Button"
 - New Feature "ToTop-Button Custom": Custom CSS and label to change default styling
