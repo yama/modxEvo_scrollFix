@@ -12,6 +12,9 @@ Offers several features to optimize workflow within Modx Evolution Manager:
 - ManagerManager 0.6.2 (mm_createTab, mm_moveFieldsToTab)
 - MultiTV 2.0
 
+#### Known Issues
+- If SEO-friendly URLs are enabled and jQuery cannot be found locally, activate line "Options +FollowSymlinks" in /.htaccess
+
 #### Version History
 ##### v0.41 - *2016-01-18*
 - Bugfix: Disable "Fix Tab-Header" for specific actions
