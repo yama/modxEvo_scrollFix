@@ -217,8 +217,8 @@ if ( $e->name == "OnManagerMainFrameHeaderHTMLBlock" ) {
 				$j("#stay").hide();
 				$j("#stay").val(2);
 				$j("#Button1 a").attr("title","'. $_lang["save"] .' + '. $_lang["stay"] .'");
-				$j("#Button1").append("<a style=\"cursor: pointer;padding-left:1em;padding-right:1em;\" onclick=\"$j(\'#stay\').val(\'1\'); documentDirty=false; '. $jsFunc .'\" title=\"'. $_lang["save"] .' + '. $_lang["stay_new"] .'\"><img src=\"'. $_style["icons_new_document"] .'\" /></a>");
-				$j("#Button1").append("<a style=\"cursor: pointer;padding-left:1em;padding-right:1em;margin-right:1em;\" onclick=\"$j(\'#stay\').val(\'\'); documentDirty=false; '. $jsFunc .'\" title=\"'. $_lang["save"] .' + '. $_lang["close"] .'\"><img src=\"'. $_style["icons_cancel"] .'\" /></a>");
+				$j("#Button1").append("<a style=\"cursor: pointer;padding-left:1em;padding-right:1em;border-top-right-radius: 0px;border-bottom-right-radius: 0px;\" onclick=\"$j(\'#stay\').val(\'1\'); documentDirty=false; '. $jsFunc .'\" title=\"'. $_lang["save"] .' + '. $_lang["stay_new"] .'\"><img src=\"'. $_style["icons_new_document"] .'\" /></a>");
+				$j("#Button1").append("<a style=\"cursor: pointer;padding-left:1em;padding-right:1em;margin-right:1em;margin-left: -1px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;\" onclick=\"$j(\'#stay\').val(\'\'); documentDirty=false; '. $jsFunc .'\" title=\"'. $_lang["save"] .' + '. $_lang["close"] .'\"><img src=\"'. $_style["icons_cancel"] .'\" /></a>");
 			};
 ';
 	};
