@@ -3,7 +3,7 @@ Offers several features to optimize workflow within Modx Evolution Manager:
 
 - "ScrollFix": Remembers last scroll-position after pressing Save-button, or leaving a page (for Modx 1.0)
 - "Fix Tab-Header": Moves Scrollbar from Window to Tab-Pane so Tab-Headers are always within viewport and accessible. Also remembers last Scroll-Position if ScrollFix is enabled! 
-- "Add ToTop-Button": Scrolls to window-top, or tab-header top if fixed. Can be styled via custom CSS
+- "Add ToTop / ToBottom-Button": Scrolls to window-top / bottom, or tab-header top / bottom if fixed. Can be styled via custom CSS
 - "Extend Save-Button": Splits Save-Button + Dropdown into 3 separate Save-Buttons
 - "Load jQuery from CDN": In case jQuery can not be found, this option acts as fallback to load jQuery from code.jquery.com
 
@@ -16,6 +16,13 @@ Offers several features to optimize workflow within Modx Evolution Manager:
 - If SEO-friendly URLs are enabled and jQuery cannot be found locally, activate line "Options +FollowSymlinks" in /.htaccess
 
 #### Version History
+##### v0.42 - *2016-01-29*
+- Added ToBottom-Button ;-)
+- Bugfix: Disable "Fix Tab-Header" for "Create new user"
+- Bugfix: Fix-Tabheader leaves Main-Scrollbar intact in case it is needed (for long modal-boxes i.e.)
+- ToTop / TopBottom - Buttons below KC Finder backdrop
+- Save-Button CSS 
+
 ##### v0.41 - *2016-01-18*
 - Bugfix: Disable "Fix Tab-Header" for specific actions
 - Bugfix: Switch "ToTop-Button" using window.scrollTo if no tab is fixed
@@ -43,4 +50,6 @@ Offers several features to optimize workflow within Modx Evolution Manager:
 - Added: Optional "Scroll to Top"-Button
   
 ##### v0.1 - *2015-11-21*
-- Initial release
+- Initial release inspired by
+  - ScrollFix:  http://forums.modx.com/thread/92462/remember-position-of-resource-page-after-saving-in-evo
+  - AlwaysStay: https://github.com/extras-evolution/AlwaysStay/blob/master/install/assets/plugins/AlwaysStay.tpl
