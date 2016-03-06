@@ -44,15 +44,12 @@ if ( $e->name == "OnManagerMainFrameHeaderHTMLBlock" ) {
 
     // TAKE CARE OF JQUERY
     if( $scrollFix != 'Disabled' || $alwaysStay != 'Disabled' || $addToTopButton != 'Disabled' || $fixTabHeader != 'Disabled') {
-        // ADD JQUERY FROM LOCAL
-        $html .= '
-        <script>!window.jQuery && document.write(unescape(\'%3Cscript src="/assets/js/jquery.min.js"%3E%3C/script%3E\'))</script>';
-
-        // ADD JQUERY FROM CDN
-        if( $jQueryCdn != 'Disabled' ) {
-            $html .= '
-        <script>!window.jQuery && document.write(unescape(\'%3Cscript src="https://code.jquery.com/jquery.min.js"%3E%3C/script%3E\'))</script>';
-        };
+        
+        if( $jQueryCdn != 'Disabled' ) $scr_url = 'https://code.jquery.com/jquery.min.js';               // ADD JQUERY FROM CDN
+        else                           $scr_url = $modx->config['base_url'] . 'assets/js/jquery.min.js'; // ADD JQUERY FROM LOCAL
+        
+        $script_tag = urlencode(sprintf('<script src="%s"></script>', $scr_url));
+        $html .= sprintf("<script>!window.jQuery && document.write(unescape('%s'))</script>", $script_tag);
 
         // ADD ERROR-MSG & NO-CONFLICT
         $html .= '
